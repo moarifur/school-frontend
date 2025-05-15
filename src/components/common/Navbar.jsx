@@ -1,9 +1,10 @@
+"use client"
+
 import React from 'react';
 import Link from 'next/link'
-
+import {SidebarTrigger} from "@/components/ui/sidebar";
 import Mode from "./navbar/Mode";
 import Profile from "./navbar/Profile";
-import {SidebarTrigger} from "@/components/ui/sidebar";
 
 const Navbar = () => {
     return (

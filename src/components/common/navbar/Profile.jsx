@@ -1,13 +1,8 @@
 import React from 'react';
-import {
-    DropdownMenu,
-    DropdownMenuContent, DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger
-} from "../../ui/dropdown-menu";
-import {LogOut, Settings, User} from "lucide-react";
+
+import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
+import {LogOut, Settings, User} from "lucide-react";
 
 const Profile = () => {
     return (
