@@ -68,12 +68,6 @@ export default function RootLayout({ children }) {
                     <main className="flex-1 flex flex-col">
                         {/* Top Navbar */}
                         <Navbar />
-
-                        {/* Optional: Sidebar toggle button (visible on mobile) */}
-                        <div className="p-2">
-                            <SidebarTrigger />
-                        </div>
-
                         {/* Page content */}
                         <div className="px-4 py-4 flex-1 overflow-auto">
                             {children}
