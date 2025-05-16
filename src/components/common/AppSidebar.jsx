@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react';
 import { Calendar, ChevronUp, Home, Inbox, LogOut, Search, Settings, User, User2 } from "lucide-react";
 import Link from "next/link";
