@@ -22,7 +22,8 @@
 
 import { Geist, Geist_Mono } from "next/font/google"; // Importing fonts optimized by Next.js
 import "./globals.css"; // Global Tailwind styles (important for layout and consistency)
-import HydrationBoundary from "@/app/HydrationBoundary"; // Custom component to isolate dynamic hydration-sensitive logic
+import HydrationBoundary from "@/app/HydrationBoundary";
+import {cookies} from "next/headers"; // Custom component to isolate dynamic hydration-sensitive logic
 
 /**
  * Load and configure Google Fonts using next/font.
@@ -50,32 +51,31 @@ export const metadata = {
  * Root layout component — wraps the entire app.
  *
  * @param {React.ReactNode} children - All nested pages/components rendered within the app.
+ * <html> tag is rendered once and used globally.
+ * - `lang="en"` improves accessibility and SEO.
+ * - `suppressHydrationWarning` avoids hydration errors caused by differences
+ *   between server-rendered and client-rendered HTML (like theme switching).
+ *
+ *   <body> applies global fonts using Tailwind's CSS variable pattern.
+ * - `h-full` ensures the body takes full height for 100vh layouts.
+ * - `antialiased` makes font rendering smoother.
+ *
+ * HydrationBoundary is a wrapper component (you define it).
+ * Purpose: isolate dynamic client-only logic or UI (e.g., theme switching)
+ * to avoid React hydration errors and let the layout remain SSR-safe.
+ *
  */
-export default function RootLayout({ children }) {
+
+export default async function RootLayout({ children }) {
+    const cookieStore = await cookies()
+    const sidebarState = cookieStore.get("sidebar_state")?.value === "true"
+
     return (
-        /**
-         * <html> tag is rendered once and used globally.
-         * - `lang="en"` improves accessibility and SEO.
-         * - `suppressHydrationWarning` avoids hydration errors caused by differences
-         *   between server-rendered and client-rendered HTML (like theme switching).
-         */
         <html lang="en" suppressHydrationWarning>
-        {/**
-         * <body> applies global fonts using Tailwind's CSS variable pattern.
-         * - `h-full` ensures the body takes full height for 100vh layouts.
-         * - `antialiased` makes font rendering smoother.
-         */}
         <body
             className={`h-full ${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-        {/**
-         * HydrationBoundary is a wrapper component (you define it).
-         * Purpose: isolate dynamic client-only logic or UI (e.g., theme switching)
-         * to avoid React hydration errors and let the layout remain SSR-safe.
-         */}
-        <HydrationBoundary>
-            {children}
-        </HydrationBoundary>
+            <HydrationBoundary defaultSidebarOpen={sidebarState}>{children}</HydrationBoundary>
         </body>
         </html>
     );
