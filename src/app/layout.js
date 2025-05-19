@@ -1,86 +1,81 @@
 /**
- * Root layout component for the School Management System Admin Dashboard.
+ * ===============================
+ * Root Layout: layout.js (App Router)
+ * ===============================
  *
- * This file defines the global layout structure using Next.js App Router
- * and integrates ShadCN's Sidebar context and theme provider.
- * ThemeProvider wraps your app and enables system-aware theme switching.
- * SidebarProvider manages sidebar open/close state across the app.
+ * Purpose:
+ * This is the top-level layout for the entire Next.js application.
+ * It defines the global structure, fonts, CSS, and hydration-safe HTML.
  *
- * Includes:
- * - Google fonts (Geist Sans and Mono)
- * - Global Tailwind styles
- * - Persistent Sidebar and Navbar
- * - Dark/light mode support via ThemeProvider
- * - Layout structure with proper HTML to avoid hydration mismatch
+ * Key Features:
+ * - Loads and applies Google fonts using Next.js `next/font/google`.
+ * - Applies global Tailwind CSS styles.
+ * - Wraps children in a hydration-safe boundary to prevent common SSR/CSR mismatches.
+ * - Prevents hydration mismatch errors using `suppressHydrationWarning`.
+ *
+ * Why This Matters:
+ * Next.js uses Server Components (SSR) and Client Components (CSR) together.
+ * A mismatch between HTML rendered on the server and what React expects on the client
+ * (due to themes, dynamic content, browser-only conditions) can cause hydration errors.
+ * This layout is designed to handle those safely.
  */
 
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import { Geist, Geist_Mono } from "next/font/google"; // Importing fonts optimized by Next.js
+import "./globals.css"; // Global Tailwind styles (important for layout and consistency)
+import HydrationBoundary from "@/app/HydrationBoundary"; // Custom component to isolate dynamic hydration-sensitive logic
 
-// ShadCN layout context
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-
-// Custom layout components
-import AppSidebar from "@/components/common/AppSidebar";
-import Navbar from "@/components/common/Navbar";
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import {cookies} from "next/headers";
-
-// Load Google Fonts with Tailwind-compatible CSS variable
+/**
+ * Load and configure Google Fonts using next/font.
+ * This helps avoid layout shifts and supports Tailwind’s `font-variable` usage.
+ */
 const geistSans = Geist({
-    variable: "--font-geist-sans",
-    subsets: ["latin"],
+    variable: "--font-geist-sans", // Exposes the font as a CSS variable
+    subsets: ["latin"], // Optimize for Latin character sets
 });
 const geistMono = Geist_Mono({
     variable: "--font-geist-mono",
     subsets: ["latin"],
 });
 
-// SEO Metadata
+/**
+ * Metadata for the entire application.
+ * Next.js will inject this into the <head> for better SEO and social previews.
+ */
 export const metadata = {
     title: "School Portal Management System",
-    description:
-        "A modern, secure, and scalable school portal designed for students, teachers, parents, staff, and administrators. Each user role has a personalized dashboard to view relevant data such as upcoming events, announcements, and activities.",
+    description: "A modern, secure, and scalable school portal...",
 };
 
-
-// Root layout structure
-export default async function RootLayout({ children }) {
-    // Persisted State for Sidebar
-    const cookieStore = await cookies()
-    const defaultOpen = cookieStore.get("sidebar_state")?.value === "true"
+/**
+ * Root layout component — wraps the entire app.
+ *
+ * @param {React.ReactNode} children - All nested pages/components rendered within the app.
+ */
+export default function RootLayout({ children }) {
     return (
-        <html lang="en" className="h-full">
-        {/* Use suppressHydrationWarning to help with dynamic class issues from ThemeProvider */}
+        /**
+         * <html> tag is rendered once and used globally.
+         * - `lang="en"` improves accessibility and SEO.
+         * - `suppressHydrationWarning` avoids hydration errors caused by differences
+         *   between server-rendered and client-rendered HTML (like theme switching).
+         */
+        <html lang="en" suppressHydrationWarning>
+        {/**
+         * <body> applies global fonts using Tailwind's CSS variable pattern.
+         * - `h-full` ensures the body takes full height for 100vh layouts.
+         * - `antialiased` makes font rendering smoother.
+         */}
         <body
-            suppressHydrationWarning
-            className={`${geistSans.variable} ${geistMono.variable} antialiased h-full`}
+            className={`h-full ${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-        {/* ThemeProvider wraps your app and enables system-aware theme switching. */}
-        <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-        >
-            {/* SidebarProvider manages sidebar open/close state across the app. */}
-            <SidebarProvider defaultOpen={defaultOpen}>
-                <div className="flex h-full w-full">
-                    {/* Sidebar component (always visible on desktop) */}
-                    <AppSidebar />
-
-                    {/* Main content container */}
-                    <main className="flex-1 flex flex-col">
-                        {/* Top Navbar */}
-                        <Navbar />
-                        {/* Page content */}
-                        <div className="px-4 py-4 flex-1 overflow-auto">
-                            {children}
-                        </div>
-                    </main>
-                </div>
-            </SidebarProvider>
-        </ThemeProvider>
+        {/**
+         * HydrationBoundary is a wrapper component (you define it).
+         * Purpose: isolate dynamic client-only logic or UI (e.g., theme switching)
+         * to avoid React hydration errors and let the layout remain SSR-safe.
+         */}
+        <HydrationBoundary>
+            {children}
+        </HydrationBoundary>
         </body>
         </html>
     );
