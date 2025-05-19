@@ -24,6 +24,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import AppSidebar from "@/components/common/AppSidebar";
 import Navbar from "@/components/common/Navbar";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import {cookies} from "next/headers";
 
 // Load Google Fonts with Tailwind-compatible CSS variable
 const geistSans = Geist({
@@ -42,8 +43,12 @@ export const metadata = {
         "A modern, secure, and scalable school portal designed for students, teachers, parents, staff, and administrators. Each user role has a personalized dashboard to view relevant data such as upcoming events, announcements, and activities.",
 };
 
+
 // Root layout structure
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+    // Persisted State for Sidebar
+    const cookieStore = await cookies()
+    const defaultOpen = cookieStore.get("sidebar_state")?.value === "true"
     return (
         <html lang="en" className="h-full">
         {/* Use suppressHydrationWarning to help with dynamic class issues from ThemeProvider */}
@@ -59,7 +64,7 @@ export default function RootLayout({ children }) {
             disableTransitionOnChange
         >
             {/* SidebarProvider manages sidebar open/close state across the app. */}
-            <SidebarProvider>
+            <SidebarProvider defaultOpen={defaultOpen}>
                 <div className="flex h-full w-full">
                     {/* Sidebar component (always visible on desktop) */}
                     <AppSidebar />

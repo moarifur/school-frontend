@@ -18,9 +18,12 @@ import {
     Settings,
     LogOut,
     ChevronUp,
+    ChevronDown,
     Inbox,
     Search,
-    Menu
+    Menu,
+    Plus,
+    Minus
 } from 'lucide-react';
 
 // UI Components
@@ -47,10 +50,12 @@ import {
     DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
 
-import {Sheet, SheetContent, SheetTrigger} from "@/components/ui/sheet";
-import {Button} from "@/components/ui/button"; // "admin", "teacher", "student", "parent"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+
 
 // Role for access control (mock role here – replace with dynamic auth logic)
+// "admin", "teacher", "student", "parent"
 const role = "admin"
 
 /**
@@ -77,19 +82,19 @@ const menuItems = [
             { icon: Megaphone, label: 'Announcements', href: '/list/announcements', visible: ['admin', 'teacher', 'student', 'parent'] },
         ],
     },
-    {
-        title: 'OTHER',
-        items: [
-            { icon: User, label: 'Profile', href: '/profile', visible: ['admin', 'teacher', 'student', 'parent'] },
-            { icon: Settings, label: 'Settings', href: '/settings', visible: ['admin', 'teacher', 'student', 'parent'] },
-            { icon: LogOut, label: 'Logout', href: '/logout', visible: ['admin', 'teacher', 'student', 'parent'] },
-        ],
-    },
+    // {
+    //     title: 'OTHER',
+    //     items: [
+    //         { icon: User, label: 'Profile', href: '/profile', visible: ['admin', 'teacher', 'student', 'parent'] },
+    //         { icon: Settings, label: 'Settings', href: '/settings', visible: ['admin', 'teacher', 'student', 'parent'] },
+    //         { icon: LogOut, label: 'Logout', href: '/logout', visible: ['admin', 'teacher', 'student', 'parent'] },
+    //     ],
+    // },
 ];
 
 const AppSidebar = () => {
     return (
-        <Sidebar collapsible="icon" side={`left`}>
+        <Sidebar collapsible="icon" side={`left`} className={`bg-amber-700`}>
             {/* Brand/Logo Section */}
             <SidebarHeader>
                 <SidebarMenu>
@@ -130,40 +135,38 @@ const AppSidebar = () => {
                 ))}
             </SidebarContent>
 
-            <>
-                {/*<SidebarFooter>*/}
-                {/*    <SidebarMenu>*/}
-                {/*        <SidebarMenuItem>*/}
-                {/*            /!* User Profile Dropdown *!/*/}
-                {/*            <DropdownMenu>*/}
-                {/*                <DropdownMenuTrigger asChild>*/}
-                {/*                    <SidebarMenuButton>*/}
-                {/*                        <User2 className="w-[1.2rem] h-[1.2rem]" />*/}
-                {/*                        <span className="hidden lg:inline">John Doe</span>*/}
-                {/*                        <ChevronUp className="ml-auto" />*/}
-                {/*                    </SidebarMenuButton>*/}
-                {/*                </DropdownMenuTrigger>*/}
-                {/*                <DropdownMenuContent align="end">*/}
-                {/*                    <DropdownMenuLabel>My Account</DropdownMenuLabel>*/}
-                {/*                    <DropdownMenuSeparator />*/}
-                {/*                    <DropdownMenuItem>*/}
-                {/*                        <User className="h-[1.2rem] w-[1.2rem] mr-2" />*/}
-                {/*                        Profile*/}
-                {/*                    </DropdownMenuItem>*/}
-                {/*                    <DropdownMenuItem>*/}
-                {/*                        <Settings className="h-[1.2rem] w-[1.2rem] mr-2" />*/}
-                {/*                        Settings*/}
-                {/*                    </DropdownMenuItem>*/}
-                {/*                    <DropdownMenuItem variant="destructive">*/}
-                {/*                        <LogOut className="h-[1.2rem] w-[1.2rem] mr-2" />*/}
-                {/*                        Logout*/}
-                {/*                    </DropdownMenuItem>*/}
-                {/*                </DropdownMenuContent>*/}
-                {/*            </DropdownMenu>*/}
-                {/*        </SidebarMenuItem>*/}
-                {/*    </SidebarMenu>*/}
-                {/*</SidebarFooter>*/}
-            </>
+            <SidebarFooter>
+                <SidebarMenu>
+                    <SidebarMenuItem>
+                        {/* User Profile Dropdown */}
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <SidebarMenuButton>
+                                    <User2 className="w-[1.2rem] h-[1.2rem]" />
+                                    <span className="hidden lg:inline">John Doe</span>
+                                    <ChevronUp className="ml-auto" />
+                                </SidebarMenuButton>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem>
+                                    <User className="h-[1.2rem] w-[1.2rem] mr-2" />
+                                    Profile
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                    <Settings className="h-[1.2rem] w-[1.2rem] mr-2" />
+                                    Settings
+                                </DropdownMenuItem>
+                                <DropdownMenuItem variant="destructive">
+                                    <LogOut className="h-[1.2rem] w-[1.2rem] mr-2" />
+                                    Logout
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </SidebarMenuItem>
+                </SidebarMenu>
+            </SidebarFooter>
         </Sidebar>
     );
 };
