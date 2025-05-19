@@ -19,7 +19,7 @@ import Navbar from "@/components/common/Navbar";
  * This layout should be used as a client component (e.g. for dashboards),
  * separated from the RootLayout that contains global fonts, metadata, etc.
  */
-export default function ClientLayout({ children }) {
+export default function ClientLayout({ children, defaultSidebarOpen }) {
     return (
         <ThemeProvider
             attribute="class"
@@ -27,7 +27,7 @@ export default function ClientLayout({ children }) {
             enableSystem
             disableTransitionOnChange
         >
-            <SidebarProvider>
+            <SidebarProvider defaultOpen={defaultSidebarOpen}>
                 <div className="flex h-full w-full">
                     {/* Sidebar: visible on desktop, collapsible with SidebarTrigger */}
                     <AppSidebar />
