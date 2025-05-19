@@ -5,25 +5,17 @@ import Link from 'next/link';
 import Image from 'next/image';
 import {
     Home,
-    Users,
     User,
     User2,
-    BookOpen,
     Layers,
     FileText,
-    PenTool,
-    Calendar,
     MessageSquare,
     Megaphone,
     Settings,
     LogOut,
     ChevronUp,
-    ChevronDown,
-    Inbox,
     Search,
-    Menu,
-    Plus,
-    Minus
+    CircleUserRound, UserPen, UsersRound, Aperture, School, Archive, CalendarDays, FileSpreadsheet,
 } from 'lucide-react';
 
 // UI Components
@@ -64,20 +56,45 @@ const role = "admin"
  */
 const menuItems = [
     {
-        title: 'MENU',
+        title: 'Dashboard',
         items: [
             { icon: Home, label: 'Home', href: '/', visible: ['admin', 'teacher', 'student', 'parent'] },
-            { icon: Users, label: 'Teachers', href: '/list/teachers', visible: ['admin', 'teacher'] },
-            { icon: User, label: 'Students', href: '/list/students', visible: ['admin', 'teacher'] },
-            { icon: User2, label: 'Parents', href: '/list/parents', visible: ['admin', 'teacher'] },
-            { icon: BookOpen, label: 'Subjects', href: '/list/subjects', visible: ['admin'] },
+        ],
+    },
+    {
+        title: 'People',
+        items: [
+            { icon: CircleUserRound, label: 'Teachers', href: '/list/teachers', visible: ['admin', 'teacher'] },
+            { icon: UserPen, label: 'Students', href: '/list/students', visible: ['admin', 'teacher'] },
+            { icon: UsersRound, label: 'Parents', href: '/list/parents', visible: ['admin', 'teacher'] },
+        ],
+    },
+    {
+        title: 'Academics',
+        items: [
+            { icon: Aperture, label: 'Subjects', href: '/list/subjects', visible: ['admin'] },
             { icon: Layers, label: 'Classes', href: '/list/classes', visible: ['admin', 'teacher'] },
             { icon: FileText, label: 'Lessons', href: '/list/lessons', visible: ['admin', 'teacher'] },
-            { icon: PenTool, label: 'Exams', href: '/list/exams', visible: ['admin', 'teacher', 'student', 'parent'] },
-            { icon: Inbox, label: 'Assignments', href: '/list/assignments', visible: ['admin', 'teacher', 'student', 'parent'] },
+        ],
+    },
+    {
+        title: 'Assessments',
+        items: [
+            { icon: School, label: 'Exams', href: '/list/exams', visible: ['admin', 'teacher', 'student', 'parent'] },
+            { icon: Archive, label: 'Assignments', href: '/list/assignments', visible: ['admin', 'teacher', 'student', 'parent'] },
             { icon: Search, label: 'Results', href: '/list/results', visible: ['admin', 'teacher', 'student', 'parent'] },
-            { icon: Calendar, label: 'Attendance', href: '/list/attendance', visible: ['admin', 'teacher', 'student', 'parent'] },
-            { icon: Calendar, label: 'Events', href: '/list/events', visible: ['admin', 'teacher', 'student', 'parent'] },
+        ],
+    },
+    {
+        title: 'Monitoring',
+        items: [
+            { icon: FileSpreadsheet, label: 'Attendance', href: '/list/attendance', visible: ['admin', 'teacher', 'student', 'parent'] },
+            { icon: CalendarDays, label: 'Events', href: '/list/events', visible: ['admin', 'teacher', 'student', 'parent'] },
+        ],
+    },
+    {
+        title: 'Communication',
+        items: [
             { icon: MessageSquare, label: 'Messages', href: '/list/messages', visible: ['admin', 'teacher', 'student', 'parent'] },
             { icon: Megaphone, label: 'Announcements', href: '/list/announcements', visible: ['admin', 'teacher', 'student', 'parent'] },
         ],
@@ -94,7 +111,7 @@ const menuItems = [
 
 const AppSidebar = () => {
     return (
-        <Sidebar collapsible="icon" side={`left`} className={`bg-amber-700`}>
+        <Sidebar collapsible="icon" side={`left`}>
             {/* Brand/Logo Section */}
             <SidebarHeader>
                 <SidebarMenu>
@@ -108,13 +125,13 @@ const AppSidebar = () => {
                 </SidebarMenu>
             </SidebarHeader>
 
-            <SidebarSeparator className="ml-auto" />
+            {/*<SidebarSeparator className="ml-auto" />*/}
 
             {/* Main Navigation Content */}
             <SidebarContent>
                 {menuItems.map(section => (
                     <SidebarGroup key={section.title}>
-                        <SidebarGroupLabel>{section.title}</SidebarGroupLabel>
+                        <SidebarGroupLabel className={`uppercase text-gray-400 font-sans font-semibold text-[10px]`}>{section.title}</SidebarGroupLabel>
                         <SidebarGroupContent>
                             <SidebarMenu>
                                 {section.items
@@ -123,8 +140,8 @@ const AppSidebar = () => {
                                         <SidebarMenuItem key={item.label}>
                                             <SidebarMenuButton asChild>
                                                 <Link href={item.href} className="flex items-center gap-2">
-                                                    <item.icon className="w-[1.2rem] h-[1.2rem]" />
-                                                    <span className="hidden lg:inline">{item.label}</span>
+                                                    <item.icon className="w-[1.2rem] h-[1.2rem] text-gray-500"/>
+                                                    <span className="hidden lg:inline text-neutral-700 font-medium">{item.label}</span>
                                                 </Link>
                                             </SidebarMenuButton>
                                         </SidebarMenuItem>
