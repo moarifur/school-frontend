@@ -3,11 +3,11 @@
 import React from "react";
 // Import reusable components for dashboard widgets
 import UserCard from "@/components/widgets/UserCard"; // Displays a card for different user roles
-import CountChart from "@/components/widgets/CountChart"; // Displays a count-based chart
 import AttendanceChart from "@/components/widgets/AttendanceChart"; // Displays attendance data
 import FinanceChart from "@/components/widgets/FinanceChart"; // Displays financial data
 import EventCalendar from "@/components/widgets/EventCalendar"; // Displays events in calendar format
-import Announcements from "@/components/widgets/Announcements"; // Displays latest announcements
+import Announcements from "@/components/widgets/Announcements";
+import {CountChart} from "@/components/widgets/CountChart"; // Displays latest announcements
 
 /**
  * DashboardPage
