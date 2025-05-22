@@ -28,28 +28,17 @@ import Announcements from "@/components/widgets/Announcements"; // Displays late
 const DashboardPage = () => {
     return (
         <main className="p-4 grid grid-cols-1 lg:grid-cols-3 gap-4">
-            {/*
-        LEFT PANEL
-        Spans 2 columns on large screens.
-        Contains: User role cards, charts, and finance data.
-      */}
+            {/*============= LEFT PANEL:: Spans 2 columns on large screens. Contains: User role cards, charts, and finance data. =============*/}
             <section className="lg:col-span-2 space-y-8">
-                {/*
-          User Roles Overview
-          Displays 4 cards representing each type of user role
-        */}
+                {/*============= User Roles Overview:: Displays 4 cards representing each type of user role =============*/}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <UserCard type="student" /> {/* Student count and info */}
-                    <UserCard type="teacher" /> {/* Teacher count and info */}
-                    <UserCard type="parent" />  {/* Parent count and info */}
-                    <UserCard type="staff" />   {/* Staff count and info */}
+                    <UserCard type="student" count={1560} /> {/* Student count and info */}
+                    <UserCard type="teacher" count={45}/> {/* Teacher count and info */}
+                    <UserCard type="parent" count={32}/>  {/* Parent count and info */}
+                    <UserCard type="staff" count={1280}/>   {/* Staff count and info */}
                 </div>
 
-                {/*
-          Charts Overview
-          Left: Count chart
-          Right: Attendance overview
-        */}
+                {/*============= Charts Overview:: Left: Count chart | Right: Attendance overview =============*/}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 h-[450px]">
                     <div className="lg:col-span-1">
                         <CountChart /> {/* Shows counts for different metrics */}
@@ -59,20 +48,13 @@ const DashboardPage = () => {
                     </div>
                 </div>
 
-                {/*
-          Financials Overview
-          Full-width section showing income, expenses, etc.
-        */}
+                {/*============= Financials Overview:: Full-width section showing income, expenses, etc. =============*/}
                 <div className="h-[500px]">
                     <FinanceChart /> {/* Shows financial metrics and trends */}
                 </div>
             </section>
 
-            {/*
-        RIGHT PANEL
-        Sidebar with event calendar and announcements.
-        Stacks vertically with spacing between widgets.
-      */}
+            {/*============= RIGHT PANEL:: Sidebar with event calendar and announcements. Stacks vertically with spacing between widgets. =============*/}
             <aside className="space-y-8">
                 <EventCalendar /> {/* Interactive calendar of upcoming events */}
                 <Announcements /> {/* List of recent announcements or notices */}
