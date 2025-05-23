@@ -15,16 +15,15 @@ import Announcements from "@/components/widgets/Announcements";
 const TeacherPage = () => {
     return (
         <div className="flex min-h-screen bg-gray-50">
-            {/* Sidebar */}
-            <aside className="w-64 bg-white border-r border-gray-200 p-4">
-                <Announcements />
-            </aside>
-
             {/* Main content */}
             <main className="flex-1 p-6">
                 <h1 className="text-xl font-semibold mb-4">Schedule</h1>
                 <BigCalendar />
             </main>
+            {/* Sidebar */}
+            <aside className="w-80 bg-white border-r border-gray-200 px-4">
+                <Announcements />
+            </aside>
         </div>
     );
 };

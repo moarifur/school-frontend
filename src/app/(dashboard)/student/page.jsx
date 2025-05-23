@@ -16,17 +16,19 @@ import Announcements from "@/components/widgets/Announcements";
 const StudentPage = () => {
     return (
         <div className="flex min-h-screen bg-gray-50">
-            {/* Sidebar */}
-            <aside className="w-96 bg-white border-r border-gray-200 px-4 space-y-8">
-                <EventCalendar />
-                <Announcements />
-            </aside>
 
             {/* Main content */}
             <main className="flex-1 p-6">
                 <h1 className="text-xl font-semibold mb-4">Schedule (4A)</h1>
                 <BigCalendar />
             </main>
+
+            {/* Sidebar */}
+            <aside className="w-96 bg-white border-r border-gray-200 px-4 space-y-8">
+                <EventCalendar />
+                <Announcements />
+            </aside>
+
         </div>
     );
 };
