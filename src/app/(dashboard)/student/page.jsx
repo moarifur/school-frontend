@@ -17,7 +17,7 @@ const StudentPage = () => {
     return (
         <div className="flex min-h-screen bg-gray-50">
             {/* Sidebar */}
-            <aside className="w-64 bg-white border-r border-gray-200 p-4 space-y-8">
+            <aside className="w-96 bg-white border-r border-gray-200 px-4 space-y-8">
                 <EventCalendar />
                 <Announcements />
             </aside>
