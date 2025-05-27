@@ -73,7 +73,7 @@ export default async function RootLayout({ children }) {
     return (
         <html lang="en" suppressHydrationWarning>
         <body
-            className={`h-full ${geistSans.variable} ${geistMono.variable} antialiased`}
+            className={`h-full ${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100`}
         >
             <HydrationBoundary defaultSidebarOpen={sidebarState}>{children}</HydrationBoundary>
         </body>
